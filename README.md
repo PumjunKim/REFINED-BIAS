@@ -31,12 +31,12 @@ Our metric computes the reciprocal ranks of the correct shape and texture labels
 We refer to these two components as $$\text{RB}_S$$ for shape and $$\text{RB}_T$$ for texture. Note that unlike conventional MRR,
 our ranking is computed over the logits:
 
-$$\text{RB}_S=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad \text{RB}_T=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$.
+$$\text{RB}_S=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad \text{RB}_T=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$
 
 Here, $$N$$ is the total number of samples, $$r_{\text{shape},i}$$ and $$r_{\text{texture},i}$$ are the ranks of the correct shape and texture
 labels for the $$i$$-th sample in the model's ranked predictions, respectively. The relative bias for shape and texture is written as:
 
-$$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}.
+$$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}$$
 
 
 
