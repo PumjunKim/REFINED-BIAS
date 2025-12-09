@@ -49,7 +49,7 @@ pip install -r ./requirements.txt
 ## Dataset
 The directory structure is as follows:
 
-<details> <summary><b>📁 Dataset Structure</b></summary>
+<details> <summary><b>📁 Dataset Structure</b></summary> <br>
 datasets/
 ├── refined_bias_shape/
 │   ├── balloon/
