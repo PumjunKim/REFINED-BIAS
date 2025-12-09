@@ -49,7 +49,6 @@ pip install -r ./requirements.txt
 
 ## Dataset
 The directory structure is as follows:
-
 <details>
 <summary><b> Dataset Structure</b></summary>
 
