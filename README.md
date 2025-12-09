@@ -97,7 +97,7 @@ python eval_refined_bias.py --dataset refined_bias_texture --across arch
 
 ---
 
-### 🧠 Evaluate Learning Strategies
+### ⚙️ Evaluate Learning Strategies
 ```bash
 # REFINED-BIAS Shape Cue
 python eval_refined_bias.py --dataset refined_bias_shape --across strategy
@@ -116,12 +116,7 @@ REFINED-BIAS Shape Bias (across: arch)
   • bagnet33  : 0.2438
   • ...
 ```
-Detailed per-class scores for each model and learning strategy can be found in the .json files located under `./results/across_model_architecture` and `./results/across_learning_strategy`.
 
-
-
-
-
-
-
-
+Detailed per-class scores for each model and learning strategy can be found in the `.json` files located under:
+- `./results/across_model_architecture`
+- `./results/across_learning_strategy`
