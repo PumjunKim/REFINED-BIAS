@@ -20,6 +20,7 @@ accurate assessment of shape and texture biases than prior benchmark, but also r
 clarifying previously inconsistent findings.
 
 ## Overview of REFINED-BIAS Dataset
+![REFINED-BIAS_Dataset][https://github.com/PumjunKim/REFINED-BIAS/blob/main/figures/overview.png?raw=true]
 We (1) define disentangled stimuli based on human perception rather than model-derived heuristics, 
 ensuring that each cue carries pure and interpretable information, and
 (2) select classes suited for bias evaluation and generate data to maximize the predictive strength 
