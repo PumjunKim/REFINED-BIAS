@@ -79,29 +79,42 @@ datasets/
 
 </details>
 
-## Evaluation
-To evaluate REFINED-BIAS across different model architectures and learning strategies, simply run the following command. The necessary checkpoints will be fetched and downloaded automatically.
-```
-# evaluate across model architecture on REFINED-BIAS shape cue
+## 🚀 Evaluating REFINED-BIAS
+
+To evaluate **REFINED-BIAS** across different **model architectures** or **learning strategies**, run the commands below.  
+All required checkpoints will be **downloaded automatically**.
+
+---
+
+### 🔍 Evaluate Model Architectures
+```bash
+# REFINED-BIAS Shape Cue
 python eval_refined_bias.py --dataset refined_bias_shape --across arch
 
-# evaluate across model architecture on REFINED-BIAS texture cue
+# REFINED-BIAS Texture Cue
 python eval_refined_bias.py --dataset refined_bias_texture --across arch
+```
 
-# evaluate across learning strategy on REFINED-BIAS shape cue
+---
+
+### 🧠 Evaluate Learning Strategies
+```bash
+# REFINED-BIAS Shape Cue
 python eval_refined_bias.py --dataset refined_bias_shape --across strategy
 
-# evaluate across learning strategy on REFINED-BIAS texture cue
+# REFINED-BIAS Texture Cue
 python eval_refined_bias.py --dataset refined_bias_texture --across strategy
+```
 
-```
-The above command will print out as shown in the example below:
-```
-REFINED-BIAS Shape Bias on arch
-> bagnet9               : 0.0518
-> bagnet17              : 0.0988
-> bagnet33              : 0.2438
-> ...
+---
+
+### 📄 Example Output
+```text
+REFINED-BIAS Shape Bias (across: arch)
+  • bagnet9   : 0.0518
+  • bagnet17  : 0.0988
+  • bagnet33  : 0.2438
+  • ...
 ```
 Detailed per-class scores for each model and learning strategy can be found in the .json files located under `./results/across_model_architecture` and `./results/across_learning_strategy`.
 
