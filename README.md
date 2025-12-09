@@ -50,7 +50,7 @@ pip install -r ./requirements.txt
 The directory structure is as follows:
 
 <details>
-<summary><b>📁 Dataset Structure</b></summary>
+<summary><b> Dataset Structure</b></summary>
 
 <br>
 
@@ -77,6 +77,33 @@ datasets/
 **Image size**: (3, 224, 224)
 
 </details>
+
+## Evaluation
+To evaluate REFINED-BIAS across different model architectures and learning strategies, simply run the following command. The necessary checkpoints will be fetched and downloaded automatically.
+```
+# evaluate across model architecture on REFINED-BIAS shape cue
+python eval_refined_bias.py --dataset refined_bias_shape --across arch
+
+# evaluate across model architecture on REFINED-BIAS texture cue
+python eval_refined_bias.py --dataset refined_bias_texture --across arch
+
+# evaluate across learning strategy on REFINED-BIAS shape cue
+python eval_refined_bias.py --dataset refined_bias_shape --across strategy
+
+# evaluate across learning strategy on REFINED-BIAS texture cue
+python eval_refined_bias.py --dataset refined_bias_texture --across strategy
+
+```
+The above command will print out as shown in the example below:
+```
+REFINED-BIAS Shape Bias on arch
+> bagnet9               : 0.0518
+> bagnet17              : 0.0988
+> bagnet33              : 0.2438
+> ...
+```
+Detailed per-class scores for each model and learning strategy can be found in the .json files located under `./results/across_model_architecture` and `./results/across_learning_strategy`.
+
 
 
 
