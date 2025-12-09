@@ -39,7 +39,34 @@ labels for the $$i$$-th sample in the model's ranked predictions, respectively. 
 
 $$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}$$
 
+## Installation
+'''python
+conda create --name refined python=3.8.20 -y
+conda activate refined
+pip install -r ./requirements.txt
+'''
 
+## Dataset
+The directory structure is as follows:
+
+<details> <summary><b>📁 Dataset Structure</b></summary>
+datasets/
+├── refined_bias_shape/
+│   ├── balloon/
+│   │   ├── balloon_0.png
+│   │   ├── balloon_1.png
+│   │   └── ...
+│   ├── book/
+│   └── ...
+└── refined_bias_texture/
+    ├── brain_coral/
+    │   ├── 4x4_brain_coral_0.png
+    │   ├── 4x4_brain_coral_1.png
+    │   └── ...
+    ├── texture/
+    └── ...
+**Image size**: (3, 224, 224)
+</details>
 
 
 
