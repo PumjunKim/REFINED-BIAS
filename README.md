@@ -50,7 +50,6 @@ pip install -r ./requirements.txt
 The directory structure is as follows:
 
 <details> <summary><b>📁 Dataset Structure</b></summary>
-'''text
 datasets/
 ├── refined_bias_shape/
 │   ├── balloon/
@@ -66,9 +65,10 @@ datasets/
     │   └── ...
     ├── texture/
     └── ...
-'''
 
-**Image size**: (3, 224, 224)
+
+Image size: (3, 224, 224)
+
 </details>
 
 
