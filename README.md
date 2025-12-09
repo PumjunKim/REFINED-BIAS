@@ -1,6 +1,6 @@
 # REFINED-BIAS: a **RE**liable **F**ramework for **IN**tegrated **E**valuation and **D**isentangled **B**enchmark of **I**nterpretable **A**lignment of **S**hape/texture in neural networks
 
-Pum Jun Kim, Seung-Ah Lee, Seongho Park, [Dongyoon Han](https://scholar.google.com/citations?user=jcP7m1QAAAAJ&hl=ko&oi=ao), [Jaejun Yoo](https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ)
+[Pum Jun Kim](https://scholar.google.com/citations?user=WGJgXskAAAAJ&hl=ko&oi=ao), Seung-Ah Lee, Seongho Park, [Dongyoon Han](https://scholar.google.com/citations?user=jcP7m1QAAAAJ&hl=ko&oi=ao), [Jaejun Yoo](https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ)
 
 [Paper]
 
@@ -18,5 +18,29 @@ and quantifies cue sensitivity across the full label space using Mean Reciprocal
 Extensive evaluations across diverse training regimes and architectures demonstrate that REFINED-BIAS not only provides a more
 accurate assessment of shape and texture biases than prior benchmark, but also reveals new insights into how models utilize cues,
 clarifying previously inconsistent findings.
+
+## Overview of REFINED-BIAS Dataset
+We (1) define disentangled stimuli based on human perception rather than model-derived heuristics, 
+ensuring that each cue carries pure and interpretable information, and
+(2) select classes suited for bias evaluation and generate data to maximize the predictive strength 
+of both shape and texture cues, thereby balancing cue informativeness.
+
+# How shape/texture bias metric of REFINED-BIAS is defined?
+Our metric computes the reciprocal ranks of the correct shape and texture labels within the model's full prediction ranking.
+We refer to these two components as $$\text{RB}_S$$ for shape and $$\text{RB}_T$$ for texture. Note that unlike conventional MRR,
+our ranking is computed over the logits:
+
+$$\text{RB}_S=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad \text{RB}_T=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$.
+
+Here, $$N$$ is the total number of samples, $$r_{\text{shape},i}$$ and $$r_{\text{texture},i}$$ are the ranks of the correct shape and texture
+labels for the $$i$$-th sample in the model's ranked predictions, respectively. The relative bias for shape and texture is written as:
+
+$$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}.
+
+
+
+
+
+
 
 
