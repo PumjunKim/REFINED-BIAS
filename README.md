@@ -40,7 +40,8 @@ labels for the $$i$$-th sample in the model's ranked predictions, respectively. 
 $$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}$$
 
 ## Installation
-'''python
+
+```python
 conda create --name refined python=3.8.20 -y
 conda activate refined
 pip install -r ./requirements.txt
