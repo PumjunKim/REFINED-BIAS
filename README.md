@@ -39,7 +39,7 @@ labels for the $$i$$-th sample in the model's ranked predictions, respectively. 
 
 $$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB}^{rel}_T=\frac{\text{RB}_T}{(\text{RB}_S+\text{RB}_T)}$$
 
-## 🚀 Evaluating REFINED-BIAS
+## 🚀 Evaluating via REFINED-BIAS
 
 To evaluate **REFINED-BIAS** across different **model architectures** or **learning strategies**, run the commands below.  
 All required checkpoints will be **downloaded automatically**.
