@@ -45,7 +45,7 @@ $$\text{RB}^{rel}_S=\frac{\text{RB}_S}{(\text{RB}_S+\text{RB}_T)},\quad \text{RB
 conda create --name refined python=3.8.20 -y
 conda activate refined
 pip install -r ./requirements.txt
-'''
+```
 
 ## Dataset
 The directory structure is as follows:
