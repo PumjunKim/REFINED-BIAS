@@ -233,11 +233,11 @@
           benchmark can consistently detect such variations.
         </p>
         <ul>
-          <li><strong>Shape Augmentation:</strong> Models are explicitly trained on conflicting-cue images, where the texture label is incorrect but the shape label is correct.</li>
-          <li><strong>Contrastive Learning:</strong> By aligning representations across texture variations, the contrastive models learn to suppress non-stationary texture cues and rely more on stable shape information.</li>
-          <li><strong>Texture Distortion:</strong> Adding noise that disrupts texture information while preserving semantic structure encourages models to focus on invariant shape features.</li>
-          <li><strong>Mixed Augmentation:</strong> Mixing image pairs or masking regions allows models to learn robust, stable cues, balancing the use of shape and texture information.</li>
-          <li><strong>Adversarial Training:</strong> Mixing image pairs or masking regions helps models learn both stable shape and texture cues. Because a mild texture distortion is also applied, models tend to rely slightly more on shape cues than on texture.</li>
+          <li><strong>Shape Augmentation:</strong> Models are exposed to conflicting cue images to explicitly encourage shape-based recognition.</li>
+          <li><strong>Contrastive Learning:</strong> Models learn to align representations across texture variations, promoting reliance on shape information.</li>
+          <li><strong>Texture Distortion:</strong> Noise is introduced to disrupt texture information while preserving semantic structure, encouraging dependence on invariant shape features.</li>
+          <li><strong>Mixed Augmentation:</strong> Image pairs are mixed or regions masked to facilitate learning of stable shape and texture cues, with some methods additionally applying mild texture distortions.</li>
+          <li><strong>Adversarial Training:</strong> Models are trained to be robust to small, imperceptible image perturbations without directly altering shape or texture perception.</li>
       </ul>
       </div>
         <img src="./static/images/dataset_validity.png"
@@ -360,4 +360,5 @@
 -->
 </body>
 </html>
+
 
