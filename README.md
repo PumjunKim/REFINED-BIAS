@@ -1,6 +1,6 @@
-# REFINED-BIAS: a **RE**liable **F**ramework for **IN**tegrated **E**valuation and **D**isentangled **B**enchmark of **I**nterpretable **A**lignment of **S**hape/texture in neural networks
+# On the Reliability of Cue Conflict and Beyond
 
-[Pum Jun Kim](https://scholar.google.com/citations?user=WGJgXskAAAAJ&hl=ko&oi=ao), Seung-Ah Lee, Seongho Park, [Dongyoon Han](https://scholar.google.com/citations?user=jcP7m1QAAAAJ&hl=ko&oi=ao), [Jaejun Yoo](https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ)
+[Pum Jun Kim](https://scholar.google.com/citations?user=WGJgXskAAAAJ&hl=ko&oi=ao)$^*$, Seung-Ah Lee$^*$, Seongho Park, [Dongyoon Han](https://scholar.google.com/citations?user=jcP7m1QAAAAJ&hl=ko&oi=ao), [Jaejun Yoo](https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ)
 
 [Paper] | [Project Page] | **Quick Start**: [REFINED-BIAS](https://github.com/PumjunKim/REFINED-BIAS#-evaluating-refined-bias) | [Colab]
 
