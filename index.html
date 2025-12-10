@@ -241,11 +241,11 @@
           benchmark can consistently detect such variations.
         </p>
         <ul>
-          <li><strong>Shape Augmentation:</strong> Models are directly trained to predict the correct shape cue from conflicting cue images.</li>
+          <li><strong>Shape Augmentation:</strong> Models are explicitly trained on conflicting-cue images, where the texture label is incorrect but the shape label is correct.</li>
           <li><strong>Contrastive Learning:</strong> Models learn to align representations across texture variations, promoting reliance on shape information.</li>
           <li><strong>Texture Distortion:</strong> Noise is introduced to disrupt texture information while preserving semantic structure, encouraging dependence on invariant shape features.</li>
           <li><strong>Mixed Augmentation:</strong> Mixing image pairs or masking regions helps models learn both stable shape and texture cues. Because a mild texture distortion is also applied, models tend to rely slightly more on shape cues than on texture.</li>
-          <li><strong>Adversarial Training:</strong> Models are trained to be robust to small, imperceptible image perturbations without directly altering shape or texture perception.</li>
+          <li><strong>Adversarial Training:</strong> Models are trained to be robust to imperceptible noise without directly altering shape or texture perception.</li>
       </ul>
       </div>
         <img src="./static/images/dataset_validity.png"
@@ -370,6 +370,7 @@
 -->
 </body>
 </html>
+
 
 
 
