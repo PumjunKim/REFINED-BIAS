@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="REFINED-BIAS: a REliable Framework for INtegrated Evaluation and Disentangled Benchmark of Interpretable Alignment of Shape/texture in neural networks">
+  <meta name="keywords" content="Topological precision and recall, TopP&R">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On the Reliability of Cue Conflict and Beyond</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/javascript" defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">On the Reliability of Cue Conflict and Beyond</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=ko&user=WGJgXskAAAAJ">Pum Jun Kim</a><sup>1</sup>,</span>
+            <span class="author-block">
+              Seung-Ah Lee<sup>1</sup>,</span>
+            <span class="author-block">
+              Seongho Park<sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=ko&user=jcP7m1QAAAAJ">Dongyoon Han</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ">Jaejun Yoo</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Ulsan National Institute of Science & Technology</span>
+            <span class="author-block"><sup>2</sup>NAVER AI Labs</span>
+            <span class="author-block"><sup>3</sup>College of Medicine, Hanyang University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!--
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2306.08013"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2306.08013"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>-->
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/PumjunKim/REFINED-BIAS/tree/main"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. 
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>-->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Understanding how neural networks utilize visual cues provides a human-interpretable perspective
+            on their internal decision processes. Building on this motivation, the cue-conflict benchmark has initiated
+            important progress in bridging human and model perception.
+            </p>
+            <p>
+            However, despite its value, it falls short of meeting the necessary conditions for a precise bias analysis:
+            (1) it relies on stylized images that blend shape and texture cues,
+            blurring their distinction and offering no control over the relative contribution of each cue; (2) limiting evaluation
+            to preselected classes distorts model predictions based on cues; and (3) the cue-conflict metric fails to distinguish
+            models that genuinely utilize the cues. Collectively, these limitations hinder an accurate interpretation of model bias.
+            </p>
+            <p>
+            To address this, we introduce a <strong>REliable Framework for INtegrated Evaluation and Disentangled Benchmark of Interpretable Alignment of Shape/texture in neural networks (REFINED-BIAS)</strong>.
+            REFINED-BIAS generates artifact-free samples while preserving human defined shape and texture as faithfully as possible,
+            and quantifies cue sensitivity across the full label space using Mean Reciprocal Rank, enabling a fairer cross-model comparisons.
+            Extensive evaluations across diverse training regimes and architectures demonstrate that REFINED-BIAS not only provides a more
+            accurate assessment of shape and texture biases than prior benchmark, but also reveals new insights into how models utilize cues,
+            clarifying previously inconsistent findings.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper overview -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">What Problem Do We Address?</h2>
+        <img src="./static/images/problem.png"
+                 class="problem image"
+                 alt="four problems"/>
+        <div class="content has-text-justified" >
+        <p></p>
+        <p>
+        <strong>Does the cue-conflict benchmark truly reflect the precise biases we aim to measure?</strong> While cue-conflict offers a principled way to disentangle visual features, we argue that its current instantiation introduces artifacts and ambiguities that hinder meaningful interpretation:
+        </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">REFINED-BIAS Benchmark</h2>
+        <div class="content has-text-justified" >
+          <p>
+          To address the <strong>Blurred Cue Distinction</strong> and <strong>Unequally Mixed Cues</strong>, we define shape and texture based on human perception rather than model heuristics, and generate cues that faithfully capture these characteristics.
+          </p>
+        </div>
+        <img src="./static/images/overview.png"
+                 class="problem image"
+                 alt="four problems"/>
+        <div class="content has-text-justified" >
+        <p></p>
+        <p>
+          <strong>Shape</strong> is defined as a non-repeating geometric structure, encompassing both global and local features. Global geometry refers to the overall structure of an object, such as its silhouette, while local geometry includes distinctive substructures not repeated across the object. For instance, although "ipod" and "comic book" share a similar rectangular global geometry, their local structures are distinct, allowing reliable classification.
+        </p>
+        <p>
+          <strong>Texture</strong>, on the other hand, is defined as pattern that consistently repeats within patches of various image sizes. For example, classes like "honeycomb" and "dishrag" exhibit characteristic textures that remain recognizable even when divided into small patches of different sizes.
+        </p>
+        <p>
+          We construct a curated dataset of 20 ImageNet-derived superclasses, comprising 10 texture-dominant (e.g., strawberry, brain coral) and 10 shape-dominant (e.g., clock, hourglass) categories, selected based on human perceptual judgments. Our dataset contains 300 images per class, for a total of <strong>6,000 high-quality images</strong>, and is <strong>roughly five times larger than cue-conflict</strong>.
+        </p>
+        <p>
+          Addressing both <strong>Distorted Model Prediction</strong> and <strong>Cross-model Misrepresentation</strong>, 
+          we propose a <strong>novel metric</strong> that evaluates how prominently the correct shape and texture labels 
+          appear in the model’s full prediction ranking. Specifically, we compute the reciprocal ranks of the ground-truth 
+          shape and texture labels and denote them as RB<sub><i>S</i></sub> and RB<sub><i>T</i></sub>, respectively. Note that, unlike conventional MRR, our ranking is computed directly over the classification logits:
+        </p>
+          <div class="math">
+            $$\text{RB}_S=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad \text{RB}_T=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$
+          </div>
+        <p>
+          Here, <i>N</i> is the total number of samples, <i>r</i><sub>shape,<i>i</i></sub> and <i>r</i><sub>texture,<i>i</i></sub> 
+          are the ranks of the correct shape and texture labels for the <i>i</i>-th sample in the model's ranked predictions, respectively.
+        </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Experiment: Benchmark Evaluation</h2>
+        <div class="content has-text-justified" >
+          <p>
+            We evaluate whether the outcomes are consistent with our intuition and whether they remain 
+            plausible given existing knowledge. To this end, we first evaluate the dataset itself using 
+            extensive training strategies for diverse pre-trained models compared with the cue-conflict 
+            benchmark. We then focus more on assessing the correctness of the revised metric. 
+          </p>
+        </div>
+        <h3 class="title is-4 has-text-justified">Our Dataset Captures Expected Model Behaviors</h3>
+        <div class="content has-text-justified" >
+        <p>
+          To ensure that shape–texture bias can be reliably assessed, we measure relative 
+          bias on our dataset using models with a <strong>fixed ResNet-50 architecture</strong> 
+          trained under <strong>diverse training strategies</strong>. These strategies naturally 
+          encourage different levels of shape or texture reliance, allowing us to test whether our 
+          benchmark can consistently detect such variations.
+        </p>
+        <ul>
+          <li><strong>Shape Augmentation:</strong> Models are explicitly trained on conflicting-cue images, where the texture label is incorrect but the shape label is correct.</li>
+          <li><strong>Contrastive Learning:</strong> By aligning representations across texture variations, the contrastive models learn to suppress non-stationary texture cues and rely more on stable shape information.</li>
+          <li><strong>Texture Distortion:</strong> Adding noise that disrupts texture information while preserving semantic structure encourages models to focus on invariant shape features.</li>
+          <li><strong>Mixed Augmentation:</strong> Mixing image pairs or masking regions allows models to learn robust, stable cues, balancing the use of shape and texture information.</li>
+          <li><strong>Adversarial Training:</strong> Mixing image pairs or masking regions helps models learn both stable shape and texture cues. Because a mild texture distortion is also applied, models tend to rely slightly more on shape cues than on texture.</li>
+      </ul>
+      </div>
+        <img src="./static/images/dataset_validity.png"
+                 class="interpolation-image"
+                 alt="dataset-validation"/>
+      <div class="content has-text-justified" >
+        <p></p>
+        <p>
+          REFINED-BIAS dataset demonstrates that shape-focused strategies consistently increase shape bias. Notably, even nuanced strategies such as mixed augmentations, which apply mild texture 
+          degradation to subtly enhance shape, are accurately reflected by ours as an increased shape bias. While cue-conflict partly captures similar tendencies, many of its results are not statistically 
+          significant and show an inconsistent trend across the strategies. For adversarial training, results on our dataset show that robustness to imperceptible noise does not significantly affect model bias. 
+          In contrast, cue-conflict reports a larger increase in shape bias than shape-focused methods, which is counterintuitive since it is primarily aimed at improving adversarial robustness, not shape preference. 
+        </p>
+      </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified" >
+          <h3 class="title is-4 has-text-justified">Our Metric Distinguishes Genuine Cue Utilization</h3>
+        <p>
+          The primary goal of utilizing REFINED-BIAS metric is to enable fair comparisons across models, ensuring 
+          that models genuinely relying on either shape or texture cues can be reliably distinguished. To this end, 
+          we validate whether our metric can reveal cross-model differences that the relative bias metric fails to capture. 
+          The relative bias metric on our dataset shows adversarial learning induces the strongest texture bias, while cue-conflict 
+          reports the strongest shape bias for the same method. However, applying our metric and dataset clearly shows that adversarial 
+          learning does not improve the utilization of either cue. In contrast, mixed augmentations lead models to genuinely leverage both 
+          shape and texture cues, exposing the differences obscured by the relative measure. These results highlight that our sensitivity 
+          metric reliably distinguishes models with stronger cue use and those with more balanced reliance.
+          </p>
+      </div>
+        <img src="./static/images/metric_validity.png"
+                 class="interpolation-image"
+                 alt="Simultaneous mode dropping"/>  
+      </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="columns is-centered ">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified" >
+          <h2 class="title is-3 has-text-justified">References</h2>
+          <ol>
+            <li>Geirhos, R., Rubisch, P., Michaelis, C., Bethge, M., Wichmann, F. A., & Brendel, W. (2018, November). ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness. In International conference on learning representations.</li>
+            <li>He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).</li>
+            <li>Li, Y., Yu, Q., Tan, M., Mei, J., Tang, P., Shen, W., ... & Xie, C. (2020). Shape-texture debiased neural network training. arXiv preprint arXiv:2010.05981.</li>
+            <li>Caron, M., Touvron, H., Misra, I., Jégou, H., Mairal, J., Bojanowski, P., & Joulin, A. (2021). Emerging properties in self-supervised vision transformers. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 9650-9660).</li>
+            <li>Chen, T., Kornblith, S., Swersky, K., Norouzi, M., & Hinton, G. E. (2020). Big self-supervised models are strong semi-supervised learners. Advances in neural information processing systems, 33, 22243-22255.</li>
+            <li>Chen, X., Xie, S., & He, K. (2021). An empirical study of training self-supervised vision transformers. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 9640-9649).</li>
+            <li>Hendrycks, D., Mu, N., Cubuk, E. D., Zoph, B., Gilmer, J., & Lakshminarayanan, B. (2019). Augmix: A simple data processing method to improve robustness and uncertainty. arXiv preprint arXiv:1912.02781.</li>
+            <li>Hendrycks, D., Basart, S., Mu, N., Kadavath, S., Wang, F., Dorundo, E., ... & Gilmer, J. (2021). The many faces of robustness: A critical analysis of out-of-distribution generalization. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 8340-8349).</li>
+            <li>Hendrycks, D., Zou, A., Mazeika, M., Tang, L., Li, B., Song, D., & Steinhardt, J. (2022). Pixmix: Dreamlike pictures comprehensively improve safety measures. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (pp. 16783-16792).</li>
+            <li>Modas, A., Rade, R., Ortiz-Jiménez, G., Moosavi-Dezfooli, S. M., & Frossard, P. (2022, October). Prime: A few primitives can boost robustness to common corruptions. In European Conference on Computer Vision (pp. 623-640). Cham: Springer Nature Switzerland.</li>
+            <li>Müller, P., Braun, A., & Keuper, M. (2023). Classification robustness to common optical aberrations. In Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 3632-3643).</li>
+            <li>Wightman, R., Touvron, H., & Jégou, H. (2021). Resnet strikes back: An improved training procedure in timm. arXiv preprint arXiv:2110.00476.</li>
+            <li>Salman, H., Ilyas, A., Engstrom, L., Kapoor, A., & Madry, A. (2020). Do adversarially robust imagenet models transfer better?. Advances in Neural Information Processing Systems, 33, 3533-3545.</li>
+          </ol>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{kim2023topp,
+      title={TopP$\backslash$\&R: Robust Support Estimation Approach for Evaluating Fidelity and Diversity in Generative Models},
+      author={Kim, Pum Jun and Jang, Yoojin and Kim, Jisu and Yoo, Jaejun},
+      journal={arXiv preprint arXiv:2306.08013},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    This work was supported by the National Research Foundation of Korea (NRF) 
+    grant funded by the Korea government (MSIT) (No. 2.220574.01), Institute 
+    of Information & communications Technology Planning & Evaluation (IITP) 
+    grant funded by the Korea government (MSIT) (No.2020-0-01336, Artificial 
+    Intelligence Graduate School Program (UNIST), No.2021-0-02068, Artificial 
+    Intelligence Innovation Hub, No.2022-0-00959, (Part 2) Few-Shot Learning of
+     Causal Inference in Vision and Language for Decision Making), 
+     No.2022-0-00264, Comprehensive Video Understanding and Generation with
+      Knowledge-based Deep Logic Neural Network).
+    
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered is-centered">
+      <p>Lab. of Advanced Imaging Tech</p>
+      
+      <a href="https://sites.google.com/view/jaejunyoo"><img
+        src="static/images/others/logo_lait.png" width="50px"></a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            The website source code is from the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+-->
+</body>
+</html>
