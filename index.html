@@ -235,7 +235,7 @@
           benchmark can consistently detect such variations.
         </p>
         <ul>
-          <li><strong>Shape Augmentation:</strong> Models are exposed to conflicting cue images to explicitly encourage shape-based recognition.</li>
+          <li><strong>Shape Augmentation:</strong> Models are directly trained to predict the correct shape cue from conflicting cue images.</li>
           <li><strong>Contrastive Learning:</strong> Models learn to align representations across texture variations, promoting reliance on shape information.</li>
           <li><strong>Texture Distortion:</strong> Noise is introduced to disrupt texture information while preserving semantic structure, encouraging dependence on invariant shape features.</li>
           <li><strong>Mixed Augmentation:</strong> Mixing image pairs or masking regions helps models learn both stable shape and texture cues. Because a mild texture distortion is also applied, models tend to rely slightly more on shape cues than on texture.</li>
@@ -259,12 +259,13 @@
 
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
+        <div class="content has-text-justified">
         <h3 class="title is-4 has-text-justified">Our Metric Distinguishes Genuine Cue Utilization</h3>
       </div>
         <img src="./static/images/metric_validity.png"
                  class="interpolation-image"
                  alt="Simultaneous mode dropping"/>  
-        <div class="content has-text-justified" >
+        <div class="content has-text-justified">
           <p></p>
           <p>
             The primary goal of utilizing REFINED-BIAS metric is to enable fair comparisons across models, ensuring 
@@ -277,6 +278,7 @@
             metric reliably distinguishes models with stronger cue use and those with more balanced reliance.
           </p>
         </div>      
+    </div>
     </div>
     <br>
     <br>
