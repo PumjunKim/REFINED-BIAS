@@ -260,21 +260,24 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <div class="content has-text-justified" >
-          <h3 class="title is-4 has-text-justified">Our Metric Distinguishes Genuine Cue Utilization</h3>
-        <p>
-          The primary goal of utilizing REFINED-BIAS metric is to enable fair comparisons across models, ensuring 
-          that models genuinely relying on either shape or texture cues can be reliably distinguished. To this end, 
-          we validate whether our metric can reveal cross-model differences that the relative bias metric fails to capture. 
-          The relative bias metric on our dataset shows adversarial learning induces the strongest texture bias, while cue-conflict 
-          reports the strongest shape bias for the same method. However, applying our metric and dataset clearly shows that adversarial 
-          learning does not improve the utilization of either cue. In contrast, mixed augmentations lead models to genuinely leverage both 
-          shape and texture cues, exposing the differences obscured by the relative measure. These results highlight that our sensitivity 
-          metric reliably distinguishes models with stronger cue use and those with more balanced reliance.
-          </p>
+        <h3 class="title is-4 has-text-justified">Our Metric Distinguishes Genuine Cue Utilization</h3>
       </div>
         <img src="./static/images/metric_validity.png"
                  class="interpolation-image"
                  alt="Simultaneous mode dropping"/>  
+        <div class="content has-text-justified" >
+          <p></p>
+          <p>
+            The primary goal of utilizing REFINED-BIAS metric is to enable fair comparisons across models, ensuring 
+            that models genuinely relying on either shape or texture cues can be reliably distinguished. To this end, 
+            we validate whether our metric can reveal cross-model differences that the relative bias metric fails to capture. 
+            The relative bias metric on our dataset shows adversarial learning induces the strongest texture bias, while cue-conflict 
+            reports the strongest shape bias for the same method. However, applying our metric and dataset clearly shows that adversarial 
+            learning does not improve the utilization of either cue. In contrast, mixed augmentations lead models to genuinely leverage both 
+            shape and texture cues, exposing the differences obscured by the relative measure. These results highlight that our sensitivity 
+            metric reliably distinguishes models with stronger cue use and those with more balanced reliance.
+          </p>
+        </div>      
       </div>
     </div>
     <br>
@@ -362,6 +365,7 @@
 -->
 </body>
 </html>
+
 
 
 
