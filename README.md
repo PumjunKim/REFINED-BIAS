@@ -2,7 +2,7 @@
 
 [Pum Jun Kim](https://scholar.google.com/citations?user=WGJgXskAAAAJ&hl=ko&oi=ao)$^{\dagger}$, [Seung-Ah Lee](https://scholar.google.com/citations?hl=ko&user=lbdS3joAAAAJ) $^{\dagger}$, Seongho Park, [Dongyoon Han](https://scholar.google.com/citations?user=jcP7m1QAAAAJ&hl=ko&oi=ao), [Jaejun Yoo](https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ)
 
-[Paper] | [Project Page](https://pumjunkim.github.io/REFINED-BIAS/) | **Quick Start**: [REFINED-BIAS](https://github.com/PumjunKim/REFINED-BIAS#-evaluating-refined-bias) | [Colab]
+[Paper] | [Project Page](https://pumjunkim.github.io/REFINED-BIAS/) | **Quick Start**: [REFINED-BIAS](https://github.com/PumjunKim/REFINED-BIAS#-evaluating-refined-bias)
 
 ## Abstract
 > Understanding how neural networks utilize visual cues provides a human-interpretable perspective
