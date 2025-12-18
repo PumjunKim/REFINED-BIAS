@@ -99,14 +99,26 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  bulmaCarousel.attach('#dataset-metric-carousel', {
-    slidesToScroll: 1,
-    slidesToShow: 1,
-    pagination: true,
-    navigation: true,
-    loop: true,
-  });
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // 기존 슬라이더
+    bulmaCarousel.attach('#dataset-metric-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: false,
+      navigation: true,
+      loop: true,
+    });
+  
+    // 🔥 새로 만든 Shape / Texture 슬라이더
+    bulmaCarousel.attach('#shape-texture-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: false,
+      navigation: true,
+      loop: true,
+    });
+
 });
 </script>
 
@@ -652,6 +664,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </body>
 </html>
+
 
 
 
