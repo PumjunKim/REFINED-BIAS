@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="REFINED-BIAS: a REliable Framework for INtegrated Evaluation and Disentangled Benchmark of Interpretable Alignment of Shape/texture in neural networks">
+  <meta name="keywords" content="Topological precision and recall, TopP&R">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On the Reliability of Cue Conflict and Beyond</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <style>
+  /* Carousel container */
+  .carousel {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* bulma-carousel 내부에서 만든 슬라이드 요소 제어 */
+  .carousel-item {
+    display: none !important;
+  }
+  .carousel-item.is-active {
+    display: block !important;
+  }
+
+  /* 슬라이드 내부 여백 */
+  .slide-inner {
+    padding: 0 50px;
+    box-sizing: border-box;
+  }
+
+  /* 이미지 스타일 */
+  .carousel .item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+  }
+
+  /* 네비게이션 버튼 */
+  .carousel-nav-left,
+  .carousel-nav-right {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background: white;
+    border-radius: 50%;
+    padding: 4px 8px;
+    opacity: 0.9;
+    z-index: 10;
+  }
+  .carousel-nav-left {
+    left: 10px !important;
+  }
+  .carousel-nav-right {
+    right: 10px !important;
+  }
+
+  /* bulma-carousel pagination dots 제거 */
+  .carousel-pagination,
+  .carousel-pagination .carousel-bullet {
+    display: none !important;
+  }
+
+</style>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/javascript" defer
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // 기존 슬라이더
+    bulmaCarousel.attach('#dataset-metric-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: false,
+      navigation: true,
+      loop: true,
+    });
+  
+    // 🔥 새로 만든 Shape / Texture 슬라이더
+    bulmaCarousel.attach('#shape-texture-carousel', {
+      slidesToScroll: 1,
+      slidesToShow: 1,
+      pagination: false,
+      navigation: true,
+      loop: true,
+    });
+
+});
+</script>
+
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <!-- <h1 class="title is-1 publication-title">🪄<br/>On the Reliability of Cue Conflict and Beyond</h1> -->
+           <h1 class="title is-1 publication-title">
+            <img src="./static/images/magic_wand.png"
+                alt="icon"
+                style="width: 60px; height: auto; margin-bottom: 0px;">
+            <br/>
+            REFINED-BIAS: On the Reliability<br/> of  Cue Conflict and Beyond
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=ko&user=WGJgXskAAAAJ">Pum Jun Kim</a><sup>1,†</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=ko&user=lbdS3joAAAAJ">Seung-Ah Lee</a><sup>1,†</sup>,</span>
+            <span class="author-block">
+              Seongho Park<sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=ko&user=jcP7m1QAAAAJ">Dongyoon Han</a><sup>3,*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ">Jaejun Yoo</a><sup>1,*</sup>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Ulsan National Institute of Science & Technology</span><br>
+            <span class="author-block"><sup>2</sup>College of Medicine, Hanyang University</span><br>
+            <span class="author-block"><sup>3</sup>NAVER AI Lab</span>
+          </div>
+          <div class="is-size-6" style="font-size:0.6em;">
+            <sup>†</sup> Equal contributions. <sup>*</sup> Corresponding authors.
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!--
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2306.08013"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2306.08013"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>-->
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/PumjunKim/REFINED-BIAS/tree/main"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link.  -->
+               <span class="link-block">
+                <a href="https://github.com/PumjunKim/REFINED-BIAS/tree/main/refined_bias/datasets"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">🗂️</span>
+                  <span>Data</span>
+                </a>
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Problem Suggestion -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-3">What Problem Do We Address?</h2> -->
+
+        <div class="content has-text-justified">
+          <!-- <p><strong>Does the cue-conflict benchmark truly reflect the precise biases?</strong></p> -->
+          <p><strong>Cue-conflict benchmark </strong> has become a de-facto standard for evaluating the visual cues on which neural networks rely in their decision-making processes.
+          But, <strong>does it truly reflect the underlying biases?</strong></p>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="columns is-centered has-text-centered"  style="margin-top: 30px;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4 has-text-left">🤔 Where Cue-conflict Falls Short?</h2>
+        <div class="content has-text-justified" >
+        <p>
+          While cue-conflict offers a principled way to disentangle visual features, we argue that its current instantiation introduces artifacts and ambiguities that hinder meaningful interpretation:
+        </p>
+        
+        <!-- Full-width gray background -->
+        <div style="background-color:#f3f3f3; width:100vw; position:relative; left:50%; margin-left:-50vw; padding:50px 0; margin-top:40px;">
+
+          <!-- CONTENT WIDTH IS CONSTRAINED HERE -->
+          <div class="container is-max-desktop">
+
+            <div class="columns is-centered">
+              <div class="column is-10 has-text-centered">
+
+                <!-- Problem 1 -->
+                <div style="font-size:1.2rem; color:#FF2800; margin-bottom:8px;">
+                  Problem 1. Blurred Cue Distinction
+                </div>
+                <p style="max-width:800px; margin:0 auto 20px auto;">
+                  The cues generated by stylization are inherently ambiguous, which makes them unclear 
+                  not only to humans but also to models.
+                </p>
+                <video autoplay muted loop playsinline controls
+                  style="display:block; margin:0 auto 40px auto; width:100%; max-width:600px; border-radius:6px;">
+                  <source src="./static/mp4/figure1_problem1.mp4" type="video/mp4">
+                </video>
+
+                <!-- Problem 2 -->
+                <div style="font-size:1.2rem; color:#FF2800; margin-bottom:8px; margin-top:40px;">
+                  Problem 2. Unequally mixed cues
+                </div>
+                <p style="max-width:800px; margin:0 auto 20px auto;">
+                  Stylization cannot control the relative contributions of shape and texture, 
+                  preventing a balanced 50:50 cue mixture.
+                </p>
+                <video autoplay muted loop playsinline controls
+                  style="display:block; margin:0 auto 40px auto; width:100%; max-width:600px; border-radius:6px;">
+                  <source src="./static/mp4/figure2_problem2.mp4" type="video/mp4">
+                </video>
+
+                <!-- Problem 3 -->
+                <div style="font-size:1.2rem; color:#FF2800; margin-bottom:8px; margin-top:40px;">
+                  Problem 3. Distorted model prediction
+                </div>
+                <p style="max-width:800px; margin:0 auto 20px auto;">
+                  Restricting model evaluation to preselected classes prevents the benchmark from
+                  capturing true cue utilization.
+                </p>
+                <video autoplay muted loop playsinline controls
+                  style="display:block; margin:0 auto 40px auto; width:100%; max-width:600px; border-radius:6px;">
+                  <source src="./static/mp4/figure3_problem3.mp4" type="video/mp4">
+                </video>
+
+                <!-- Problem 4 -->
+                <div style="font-size:1.2rem; color:#FF2800; margin-bottom:8px; margin-top:40px;">
+                  Problem 4. Cross-model bias misrepresentation
+                </div>
+                <p style="max-width:800px; margin:0 auto 20px auto;">
+                  The cue-conflict metric fails to distinguish models that differ substantially 
+                  in how strongly they rely on shape and texture cues.
+                </p>
+                <video autoplay muted loop playsinline controls
+                  style="display:block; margin:0 auto 40px auto; width:100%; max-width:600px; border-radius:6px;">
+                  <source src="./static/mp4/figure4_problem4.mp4" type="video/mp4">
+                </video>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<section class="section">
+  <div class="container is-max-desktop">    
+    <div class="columns is-centered has-text-centered"  style="margin-top: 0px;">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-4 has-text-left">🪄 REFINED-BIAS Benchmark</h2> -->
+         <h2 class="title is-4 has-text-left">
+          <img src="./static/images/magic_wand.png"
+              alt="icon"
+              style="width: 28px; height: auto; vertical-align: middle; margin-right: 0px;">
+          REFINED-BIAS Benchmark
+        </h2>
+        <div class="content has-text-justified" >
+        
+          <div class="columns is-centered" style="margin-top: 20px;">
+            <div class="column is-full has-text-centered" style="display:flex; flex-direction:column;">
+            
+            <!-- Dataset -->
+            <div style="font-size: 1.2rem; color: #273FF5; margin-bottom: 10px;">
+              ⚖️ <span style="font-weight:700;">[Dataset]</span> Pure cues with balanced cue contributions
+            </div>
+            <p style="margin-top: 0;">
+              We define <strong>shape</strong> and <strong> texture </strong> based on human perception rather than model heuristics,
+              and generate cues that faithfully capture these characteristics.
+            </p>
+            
+            <!-- Definition -->
+            <div style="background-color: #f3f3f3;
+                        padding: 12px 24px 28px 24px;
+                        /* top   right  bottom left */
+                        border-radius: 8px;
+                        margin-top: 0px;
+                        margin-bottom: 10px;">
+
+              <div class="columns is-centered" style="margin-top: 0px;">
+
+                <!-- Shape Column -->
+                <div class="column is-6">
+                  <div style="font-size: 1.0rem; color:#F08080; font-weight: 700; margin-bottom: 4px;">
+                    Shape
+                  </div>
+                  <p style="margin-top: 0;">
+                    A non-repeating geometric structure that encompasses both the global outline of an object
+                    and its distinctive local substructures.
+                  </p>
+                </div>
+
+                <!-- Texture Column -->
+                <div class="column is-6">
+                  <div style="font-size: 1.0rem; color:#DEB887; font-weight: 700; margin-bottom: 4px;">
+                    Texture
+                  </div>
+                  <p style="margin-top: 0;">
+                    A visual pattern that consistently repeats within patches of various image sizes.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Data Construction -->
+            <div style="font-size: 1.2rem; font-weight: 700; margin-top: 0px;">
+              Data construction
+            </div>
+            <img src="./static/gif/figure5_rebias.gif"
+                style="display: block; 
+                        margin: 10px auto 35px auto;   /* ⬅ 아래 여백을 35px로 증가 */
+                        width: 100%; 
+                        max-width: 600px; 
+                        border-radius: 6px;">
+
+
+            <div style="padding: 12px 24px 28px 24px;
+                        /* top   right  bottom left */
+                        border-radius: 8px;
+                        margin-top: 0px;
+                        margin-bottom: 10px;">
+
+              <!-- 슬라이더 컨테이너 -->
+              <div id="shape-texture-carousel" class="carousel">
+
+                <!-- Slide 1: Shape -->
+                <div class="item">
+                  <div class="has-text-centered">
+                    <div style="font-size: 1.0rem; color:#F08080; font-weight: 700; margin-bottom: 4px;">
+                      Examples for Shape Cue
+                    </div>
+                    <img
+                      src="./static/images/figure5_rebias_shape.png"
+                      class="rebias-shape"
+                      alt="shape-image"
+                      style="max-width: 100%; border-radius: 6px;"
+                    />
+                  </div>
+                </div>
+
+                <!-- Slide 2: Texture -->
+                <div class="item">
+                  <div class="has-text-centered">
+                    <div style="font-size: 1.0rem; color:#DEB887; font-weight: 700; margin-bottom: 4px;">
+                      Examples for Texture Cue
+                    </div>
+                    <img
+                      src="./static/images/figure5_rebias_texture.png"
+                      class="rebias-texture"
+                      alt="texture-image"
+                      style="max-width: 100%; border-radius: 6px;"
+                    />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <!-- Metric -->
+            <div style="font-size: 1.2rem; color: #273FF5; margin-bottom: 10px;">
+              📊 <span style="font-weight:700;">[Metric]</span> True cue utilization for fair model comparison
+            </div>
+            <img src="./static/gif/figure6_metric.gif"
+                style="display: block; 
+                        margin: 10px auto 35px auto;   /* ⬅ 아래 여백을 35px로 증가 */
+                        width: 100%; 
+                        max-width: 600px; 
+                        border-radius: 6px;">
+
+            <p style="margin-top: 0;">
+              We propose a <strong>novel metric</strong> that evaluates how prominently the correct shape and texture labels 
+              appear in the model’s full prediction ranking. 
+            </p>
+
+            <div style="background-color: #f3f3f3;
+                        padding: 12px 24px 28px 24px;
+                        border-radius: 8px;
+                        margin-top: 0px;
+                        margin-bottom: 10px;">
+
+              <!-- Title -->
+              <div style="font-size: 1.0rem;
+                          color:#987CDA;
+                          font-weight: 700;
+                          margin-bottom: 6px;">
+                Redefined bias
+              </div>
+
+              <!-- Content -->
+              <p style="margin-top: 0;">
+                We compute the reciprocal ranks of the ground-truth shape and texture labels
+                and denote them as \( \mathrm{RB}_S \) and \( \mathrm{RB}_T \), respectively.
+                Unlike conventional MRR, the ranking is computed directly from the
+                classification logits.
+              </p>
+              <div class="math"
+              style="max-width: 520px;
+                      margin: 10px auto 10px auto;
+                      padding: 8px 12px;">
+                $$\text{RB}_S=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad \text{RB}_T=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$
+              </div>
+              <p>
+                  Here, \( N \) denotes the total number of samples, and
+                  \( r_{\text{shape}, i} \) and \( r_{\text{texture}, i} \) represent
+                  the ranks of the correct shape and texture labels for the \( i \)-th sample
+                  in the model’s prediction ranking, respectively.
+              </p>
+
+            </div>
+          </div>
+
+        
+
+        </div>
+        </div>
+      </div>
+    </div>
+
+  
+<section class="section">
+  <div class="container is-max-desktop">    
+    <div class="columns is-centered has-text-centered"  style="margin-top: 0px;">
+      <div class="column is-four-fifths">
+        <!-- <h2 class="title is-4 has-text-left">🪄 REFINED-BIAS Benchmark</h2> -->
+        <h2 class="title is-4 has-text-left">📃 Hightlight Results</h2>
+        <div class="content has-text-justified" >
+          <p>
+            We evaluate whether the outcomes are consistent with our intuition and whether they remain 
+            plausible given existing knowledge. To this end, we first evaluate the dataset itself using 
+            extensive training strategies for diverse pre-trained models compared with the cue-conflict 
+            benchmark. We then focus more on assessing the correctness of the revised metric. 
+          </p>
+          
+        <div style="font-size: 1.2rem; margin-bottom: 10px; text-align: center;">
+          🔍 <span style="font-weight:700;">Learning Strategies and Hypothesis </span>
+        </div>
+
+        <p>
+        To ensure that shape–texture bias can be reliably assessed, we evaluate 
+        both our dataset and metric using models with a fixed ResNet-50 architecture
+        trained under diverse strategies. These strategies naturally 
+        encourage different levels of shape or texture reliance, allowing us to test whether our 
+        benchmark can consistently detect such variations.
+        </p>
+        
+        <div style="text-align:left;">
+          <!-- Shape Aug. -->
+          <div style="margin-bottom:6px;">
+            <span style="color:#5484EB; font-weight:900; font-size: 1.3rem;">●</span>
+            <strong>Shape Augmentation:</strong>
+            Models are trained on conflicting-cue images in which texture labels are incorrect but shape labels remain correct.
+          </div>
+          <!-- Contrastive learning -->
+          <div style="margin-bottom:6px;">
+            <span style="color:#228B22; font-weight:900; font-size: 1.3rem;">●</span>
+            <strong>Contrastive Learning:</strong>
+            Models align representations across texture variations, promoting reliance on shape cues.
+          </div>
+          <!-- Texture distort. -->
+          <div style="margin-bottom:6px;">
+            <span style="color:#C17DEB; font-weight:900; font-size: 1.3rem;">●</span>
+            <strong>Texture Distortion:</strong>
+            Introduced noise disrupts texture information while preserving semantic structure.
+          </div>
+          <!-- Mixed Aug. -->
+          <div style="margin-bottom:6px;">
+            <span style="color:#FFD700; font-weight:900; font-size: 1.3rem;">●</span>
+            <strong>Mixed Augmentation:</strong>
+            Mixing or masking encourages models to use both shape and texture cues, with a slight bias toward shape.
+          </div>
+          <!-- Adversarial Training. -->
+          <div style="margin-bottom:6px;">
+            <span style="color:#EB892C; font-weight:900; font-size: 1.3rem;">●</span>
+            <strong>Adversarial Training:</strong>
+            Models are optimized to resist imperceptible noise without explicitly modifying shape or texture cues.
+          </div>
+
+        </div>
+      </div>
+      
+
+    <!-- Carousel Wrapper -->
+    <div class="carousel" id="dataset-metric-carousel">
+
+      <!-- Slide 1 -->
+      <div class="item">
+        <div class="slide-inner">
+          <div style="font-size: 1.2rem; color: #7B4DFF; margin-bottom: 10px; text-align:center;">
+            👀 <span style="font-weight:700;">Our Dataset Captures Expected Model Behaviors</span>
+          </div>
+
+          <img
+            src="./static/images/figure7_dataset_validity.png"
+            class="interpolation-image"
+            alt="dataset-validation"
+          />
+
+          <div class="content has-text-justified">
+            <p>
+              We examine whether measuring relative bias on our dataset can capture meaningful cross-model differences.
+            </p>
+            <p>
+              Our dataset demonstrates that shape-focused strategies consistently increase shape bias. Notably, even nuanced strategies such as mixed augmentations, which apply mild texture degradation to subtly enhance shape, are accurately reflected by ours as an increased shape bias. While cue-conflict partly captures similar tendencies, many of its results are not statistically significant and show an inconsistent trend across the strategies.
+            </p>
+            <p>
+              For adversarial training, results on our dataset show that robustness to imperceptible noise does not significantly affect model bias. In contrast, cue-conflict reports a larger increase in shape bias than shape-focused methods, which is counterintuitive since it is primarily aimed at improving adversarial robustness, not shape preference.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="item">
+        <div class="slide-inner">
+          <div style="font-size: 1.2rem; color: #7B4DFF; margin-bottom: 10px; text-align:center;">
+            💫 <span style="font-weight:700;">Our Metric Distinguishes Genuine Cue Utilization</span>
+          </div>
+
+          <img
+            src="./static/images/figure8_metric_validity.png"
+            class="interpolation-image"
+            alt="metric-validation"
+          />
+
+          <div class="content has-text-justified">
+            <p>
+            We validate whether our metric can reveal cross-model differences that the relative bias metric fails to capture. 
+            </p>
+            <p>
+            The relative bias metric on our dataset shows adversarial learning induces the strongest texture bias, while cue-conflict reports the strongest shape bias for the same method. However, applying our metric and dataset clearly shows that adversarial learning does not improve the utilization of either cue. 
+            In contrast, mixed augmentations lead models to genuinely leverage both shape and texture cues, exposing the differences obscured by the relative measure.
+            </p>
+            <p>These results highlight that our sensitivity metric reliably distinguishes models with stronger cue use and those with more balanced reliance.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    </div>
+  </div>
+
+
+<section class="section">
+  <div class="container is-max-desktop">    
+    <div class="columns is-centered has-text-left"  style="margin-top: 0px;">
+      <div class="column is-four-fifths">
+        <h2 class="title is-4 has-text-left">🖇️ References</h2>
+        <div class="content has-text-justified" >
+          <ol>
+            <li>Geirhos, R., Rubisch, P., Michaelis, C., Bethge, M., Wichmann, F. A., & Brendel, W. (2018, November). ImageNet-trained CNNs are biased towards texture; increasing shape bias improves accuracy and robustness. In International conference on learning representations.</li>
+            <li>He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 770-778).</li>
+            <li>Li, Y., Yu, Q., Tan, M., Mei, J., Tang, P., Shen, W., ... & Xie, C. (2020). Shape-texture debiased neural network training. arXiv preprint arXiv:2010.05981.</li>
+            <li>Caron, M., Touvron, H., Misra, I., Jégou, H., Mairal, J., Bojanowski, P., & Joulin, A. (2021). Emerging properties in self-supervised vision transformers. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 9650-9660).</li>
+            <li>Chen, T., Kornblith, S., Swersky, K., Norouzi, M., & Hinton, G. E. (2020). Big self-supervised models are strong semi-supervised learners. Advances in neural information processing systems, 33, 22243-22255.</li>
+            <li>Chen, X., Xie, S., & He, K. (2021). An empirical study of training self-supervised vision transformers. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 9640-9649).</li>
+            <li>Hendrycks, D., Mu, N., Cubuk, E. D., Zoph, B., Gilmer, J., & Lakshminarayanan, B. (2019). Augmix: A simple data processing method to improve robustness and uncertainty. arXiv preprint arXiv:1912.02781.</li>
+            <li>Hendrycks, D., Basart, S., Mu, N., Kadavath, S., Wang, F., Dorundo, E., ... & Gilmer, J. (2021). The many faces of robustness: A critical analysis of out-of-distribution generalization. In Proceedings of the IEEE/CVF international conference on computer vision (pp. 8340-8349).</li>
+            <li>Hendrycks, D., Zou, A., Mazeika, M., Tang, L., Li, B., Song, D., & Steinhardt, J. (2022). Pixmix: Dreamlike pictures comprehensively improve safety measures. In Proceedings of the IEEE/CVF conference on computer vision and pattern recognition (pp. 16783-16792).</li>
+            <li>Modas, A., Rade, R., Ortiz-Jiménez, G., Moosavi-Dezfooli, S. M., & Frossard, P. (2022, October). Prime: A few primitives can boost robustness to common corruptions. In European Conference on Computer Vision (pp. 623-640). Cham: Springer Nature Switzerland.</li>
+            <li>Müller, P., Braun, A., & Keuper, M. (2023). Classification robustness to common optical aberrations. In Proceedings of the IEEE/CVF International Conference on Computer Vision (pp. 3632-3643).</li>
+            <li>Wightman, R., Touvron, H., & Jégou, H. (2021). Resnet strikes back: An improved training procedure in timm. arXiv preprint arXiv:2110.00476.</li>
+            <li>Salman, H., Ilyas, A., Engstrom, L., Kapoor, A., & Madry, A. (2020). Do adversarially robust imagenet models transfer better?. Advances in Neural Information Processing Systems, 33, 3533-3545.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- <footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered is-centered">
+      <p>Lab. of Advanced Imaging Tech</p>
+      
+      <a href="https://sites.google.com/view/jaejunyoo"><img
+        src="static/images/others/logo_lait.png" width="50px"></a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            The website source code is from the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer> -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
