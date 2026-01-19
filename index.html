@@ -350,9 +350,9 @@
                   Problem 2. Unequally mixed cues
                 </div>
                 <p style="max-width:800px; margin:0 auto 20px auto;">
-                  Stylization cannot control the relative contributions of shape and texture, 
-                  preventing a balanced 50:50 cue mixture.
                 </p>
+                Stylization cannot control the relative contributions of shape and texture cues 
+                to form a balanced 50:50 mixture, which is necessary to measure true cue preference rather than cue dominance arising from unequal perceptibility.
                 <div class="video-frame">
                   <video class="plyr-video" autoplay muted playsinline>
                     <source src="./static/mp4/figure2_problem2.mp4" type="video/mp4">
@@ -364,8 +364,8 @@
                   Problem 3. Distorted model prediction
                 </div>
                 <p style="max-width:800px; margin:0 auto 20px auto;">
-                  Restricting model evaluation to preselected classes prevents the benchmark from
-                  capturing true cue utilization.
+                  Restricting model evaluation to preselected classes prevents the benchmark from 
+                  capturing true cue utilization, as predictions not included in the evaluated class set are ignored, leading to distorted interpretations of model behavior.
                 </p>
                 <div class="video-frame">
                   <video class="plyr-video" autoplay muted playsinline>
@@ -378,8 +378,7 @@
                   Problem 4. Cross-model bias misrepresentation
                 </div>
                 <p style="max-width:800px; margin:0 auto 20px auto;">
-                  The cue-conflict metric fails to distinguish models that differ substantially 
-                  in how strongly they rely on shape and texture cues.
+                  The cue-conflict metric fails to distinguish models that differ substantially in how strongly they rely on shape and texture cues, as it normalizes bias by relative proportions while ignoring large differences in overall cue sensitivity.
                 </p>
                 <div class="video-frame">
                   <video class="plyr-video" autoplay muted playsinline>
