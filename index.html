@@ -764,13 +764,13 @@
 
                 <div class="content has-text-justified">
                   <p>
-                    We examine whether measuring relative bias on our dataset can capture meaningful cross-model differences.
+                    We examine whether measuring preference on our dataset can capture meaningful cross-model differences.
                   </p>
                   <p>
-                    Our dataset demonstrates that shape-focused strategies consistently increase shape bias. Notably, even nuanced strategies such as mixed augmentations, which apply mild texture degradation to subtly enhance shape, are accurately reflected by ours as an increased shape bias. While cue-conflict partly captures similar tendencies, many of its results are not statistically significant and show an inconsistent trend across the strategies.
+                    Our dataset demonstrates that shape-focused strategies consistently increase shape preference. Notably, even nuanced strategies such as mixed augmentations, which apply mild texture degradation to subtly enhance shape, are accurately reflected by ours as an increased shape preference. While cue-conflict partly captures similar tendencies, many of its results are not statistically significant and show an inconsistent trend across the strategies.
                   </p>
                   <p>
-                    For adversarial training, results on our dataset show that robustness to imperceptible noise does not significantly affect model bias. In contrast, cue-conflict reports a larger increase in shape bias than shape-focused methods, which is counterintuitive since it is primarily aimed at improving adversarial robustness, not shape preference.
+                    For adversarial training, results on our dataset show that robustness to imperceptible noise does not significantly affect model preference. In contrast, cue-conflict reports a larger increase in shape preference than shape-focused methods, which is counterintuitive since it is primarily aimed at improving adversarial robustness, not shape preference.
                   </p>
                 </div>
               </div>
@@ -794,7 +794,7 @@
                   We validate whether our metric can reveal cross-model differences that the relative bias metric fails to capture. 
                   </p>
                   <p>
-                  The relative bias metric on our dataset shows adversarial learning induces the strongest texture bias, while cue-conflict reports the strongest shape bias for the same method. However, applying our metric and dataset clearly shows that adversarial learning does not improve the utilization of either cue. 
+                  The relative preference metric on our dataset shows adversarial learning induces the strongest texture preference, while cue-conflict reports the strongest shape preference for the same method. However, applying our metric and dataset clearly shows that adversarial learning does not improve the utilization of either cue. 
                   In contrast, mixed augmentations lead models to genuinely leverage both shape and texture cues, exposing the differences obscured by the relative measure.
                   </p>
                   <p>These results highlight that our sensitivity metric reliably distinguishes models with stronger cue use and those with more balanced reliance.</p>
