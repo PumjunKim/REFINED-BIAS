@@ -7,11 +7,17 @@ li {
   text-indent: -20px;
 }
 
-footer {
+/* footer {
   
 	bottom: 0px;
   color:white;
   background-image: linear-gradient(90deg, #020024 0%, #090979 35%, #00d4ff 100%);
+} */
+
+.footer {
+  background: #f3f3f3 !important;
+  background-image: none !important;
+  padding: 1rem 1.5rem !important;
 }
 
 .footer .icon-link {

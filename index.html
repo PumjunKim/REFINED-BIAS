@@ -183,6 +183,7 @@
   #dataset-metric-carousel .carousel-nav-right {
     right: -15px !important;
   }
+
 </style>
 
   <script>
@@ -642,18 +643,17 @@
                 Based on these sensitivities, we then define the relative bias for shape and texture.
               </p>
               <div class="math"
-              style="max-width: 520px;
-                      margin: 10px auto 10px auto;
-                      padding: 8px 12px;">
-                <!-- $$\text{Shape preference}=\frac{\mathrm{Shape\text{-}Sens}}{\mathrm{Shape\text{-}Sens}+\mathrm{Texture\text{-}Sens}},\quad 
-                \text{Texture preference}=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$ -->
-                $$\text{Shape-Sens}=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}},\quad
-                \text{Texture-Sens}=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}}$$
+                  style="max-width: 520px;
+                          margin: 10px auto;
+                          padding: 8px 12px;
+                          text-align: center;">
                 $$
-                \begin{aligned}
-                \text{Shape preference} &= \frac{\mathrm{Shape\text{-}Sens}}{\mathrm{Shape\text{-}Sens}+\mathrm{Texture\text{-}Sens}} \\
-                \text{Texture preference} &= \frac{\mathrm{Texture\text{-}Sens}}{\mathrm{Shape\text{-}Sens}+\mathrm{Texture\text{-}Sens}} 
-                \end{aligned}
+                \begin{gathered}
+                \text{Shape-Sens}=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{shape},i}} \\
+                \text{Texture-Sens}=\frac{1}{N}\sum^N_{i=1}\frac{1}{r_{\text{texture},i}} \\
+                \text{Shape preference} = \frac{\mathrm{Shape\text{-}Sens}}{\mathrm{Shape\text{-}Sens}+\mathrm{Texture\text{-}Sens}} \\
+                \text{Texture preference} = \frac{\mathrm{Texture\text{-}Sens}}{\mathrm{Shape\text{-}Sens}+\mathrm{Texture\text{-}Sens}}
+                \end{gathered}
                 $$
               </div>
               
@@ -889,11 +889,66 @@
     });
   </script>
 
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered is-centered">
+        <p>Lab. of Advanced Imaging Tech</p>
+        
+        <a href="https://sites.google.com/view/jaejunyoo">
+          <img src="static/images/others/logo_lait_black.png" width="50px">
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                Creative Commons Attribution-ShareAlike 4.0 International License.
+              </a>
+            </p>
+            <p>
+              The website source code is from the
+              <a href="https://github.com/nerfies/nerfies.github.io">source code</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
-
-
 </html>
 
+
+<!-- 
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{kim2023topp,
+      title={TopP$\backslash$\&R: Robust Support Estimation Approach for Evaluating Fidelity and Diversity in Generative Models},
+      author={Kim, Pum Jun and Jang, Yoojin and Kim, Jisu and Yoo, Jaejun},
+      journal={arXiv preprint arXiv:2306.08013},
+      year={2023}
+    }</code></pre>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgement</h2>
+    This work was supported by the National Research Foundation of Korea (NRF) 
+    grant funded by the Korea government (MSIT) (No. 2.220574.01), Institute 
+    of Information & communications Technology Planning & Evaluation (IITP) 
+    grant funded by the Korea government (MSIT) (No.2020-0-01336, Artificial 
+    Intelligence Graduate School Program (UNIST), No.2021-0-02068, Artificial 
+    Intelligence Innovation Hub, No.2022-0-00959, (Part 2) Few-Shot Learning of
+     Causal Inference in Vision and Language for Decision Making), 
+     No.2022-0-00264, Comprehensive Video Understanding and Generation with
+      Knowledge-based Deep Logic Neural Network).
+    
+  </div>
+</section> -->
 
 
 
