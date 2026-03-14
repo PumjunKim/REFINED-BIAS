@@ -21,7 +21,7 @@ def main(args):
     # Get model names to eval
     model_names = get_model_list(target=args.across)
 
-    # Load dataset and model
+    # Load dataset
     data_loader = load_dataset(dataset=args.dataset, batch_size=args.batch_size, num_workers=args.num_workers)
 
     print(f"===================================== INFERENCE =====================================")
@@ -31,12 +31,22 @@ def main(args):
     # Store class prediction ranks for each model (sorted by descending probabilities)
     model_prediction_ranks = {}
 
+    current_input_size = 224
+
     # Inference imagenet-pretrained model
     pbar = tqdm(model_names, dynamic_ncols=True, ncols=0)
     for model_name in pbar:
         pbar.set_description(f"Inference {model_name}")
 
         package = 'torchvision' if args.across == 'arch' else 'timm'
+
+        target_size = 256 if model_name == "cmt_b" else 224 # for cmt_b
+        if target_size != current_input_size:
+            data_loader = load_dataset(dataset=args.dataset, batch_size=args.batch_size, 
+                                       num_workers=args.num_workers, image_size=target_size, pin_memory=True)
+            current_input_size = target_size
+
+        # Load model
         model = load_model(model_name, package, device=device)
 
         model_prediction_ranks[model_name] = []

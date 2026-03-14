@@ -51,7 +51,13 @@ GID_LOOKUP = {
     "resnet50_diffusionnoise": "1VZz-2Du2kngTZWrQnL2CM7PNspCuJi_x",
     # SimCLRv2
     "resnet50_simclrv2": "1fDaMhujPnxo4SYOe4asPqCKQ3XB_sZvj",
-}
+    # CMT - https://github.com/ggjy/CMT.pytorch/tree/main
+    "cmt_s": "1kDafrPUgpHpze1DDhA4P5kIHuyPVHBzz",
+    "cmt_b": "1ppQ5BGtf7JwVBwoOtclxwtpVLXb1i7cJ",
+    # Swin
+    "swin_small": "1jzeQTKj5uypxFUdMUxssOzXbm_VE5o51",
+    "swin_base": "19oY1bBfpEvFMIXSORGrlMfeOb54E3BaK"
+    }
 ###########################################
 
 
@@ -137,7 +143,7 @@ def load_state_dict_from_gdrive(id, model_name, force_download=False):
     return state
 
 
-def load_pretrained_model_timm(model_name, pretrained=True):
+def load_pretrained_across_learning(model_name, pretrained=True):
     """
     Load timm pretrained model for evaluating across learning strategy
     
@@ -329,7 +335,7 @@ def load_pretrained_model_timm(model_name, pretrained=True):
     model.eval()
     return model
 
-def load_pretrained_model_torchvision(model_name, eval=True, pretrained=True):
+def load_pretrained_across_model(model_name, eval=True, pretrained=True):
     """
     Load torchvision pretrained model for evaluating across model
     
@@ -339,21 +345,8 @@ def load_pretrained_model_torchvision(model_name, eval=True, pretrained=True):
         model: prtrained model
     """
     model = None
-    if model_name.startswith("convnext"):
-        if 'tiny' in model_name:
-            from torchvision.models import convnext_tiny, ConvNeXt_Tiny_Weights
-            model = convnext_tiny(weights=ConvNeXt_Tiny_Weights.IMAGENET1K_V1)
-        elif 'small' in model_name:
-            from torchvision.models import convnext_small, ConvNeXt_Small_Weights
-            model = convnext_small(weights=ConvNeXt_Small_Weights.IMAGENET1K_V1)
-        elif 'base' in model_name:
-            from torchvision.models import convnext_base, ConvNeXt_Base_Weights
-            model = convnext_base(weights=ConvNeXt_Base_Weights.IMAGENET1K_V1)
-        elif 'large' in model_name:
-            from torchvision.models import convnext_large, ConvNeXt_Large_Weights
-            model = convnext_large(weights=ConvNeXt_Large_Weights.IMAGENET1K_V1)
-        model = NormalizedModel(model, IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD)
-    elif model_name.startswith("bagnet"):
+    # BagNet
+    if model_name.startswith("bagnet"):
         if '9' in model_name: 
             from .bagnets.pytorchnet import bagnet9
             model = bagnet9(pretrained=True)
@@ -364,12 +357,35 @@ def load_pretrained_model_torchvision(model_name, eval=True, pretrained=True):
             from .bagnets.pytorchnet import bagnet33
             model = bagnet33(pretrained=True)
         model = NormalizedModel(model, IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD)
+    # ViT
     elif model_name.startswith("vit"):
-        model = torch.hub.load(
-                                _PYTORCH_IMAGE_MODELS, model_name, pretrained=True
-                                )
+        model = torch.hub.load(_PYTORCH_IMAGE_MODELS, model_name, pretrained=True)
         model = NormalizedModel(model, IMAGENET_VIT_MEAN, IMAGENET_VIT_STD)
-
+        if 'small' in model_name:
+            model = timm.create_model("vit_small_patch16_224.augreg_in1k", pretrained=True)
+        elif 'base' in model_name:
+            model = timm.create_model("vit_base_patch16_224.augreg_in1k", pretrained=True)
+        model = NormalizedModel(model, IMAGENET_VIT_MEAN, IMAGENET_VIT_STD)
+    # Swin
+    elif model_name.startswith("swin"):
+        if 'small' in model_name:
+            model = timm.create_model("swin_small_patch4_window7_224.ms_in1k", pretrained=True)
+        elif 'base' in model_name:
+            model = timm.create_model("swin_base_patch4_window7_224.ms_in1k", pretrained=True)
+        model = NormalizedModel(model, IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD)
+    # CMT
+    elif model_name.startswith("cmt"):
+        if model_name == "cmt_s":
+            from models.cmt.cmt import cmt_s
+            model = cmt_s(pretrained=False, img_size=224)
+        elif model_name == "cmt_b":
+            from models.cmt.cmt import cmt_b
+            model = cmt_b(pretrained=False, img_size=256)
+        url = GID_LOOKUP.get(model_name)
+        ckpt_path = load_state_dict_from_gdrive(url, model_name)
+        model.load_state_dict(ckpt_path['model'], strict=True)
+        model = NormalizedModel(model, IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD)
+    # Others (AlexNet, InceptionNetV3, ResNet, VGGNet)
     else:
         import torchvision.models as zoomodels
         model = zoomodels.__dict__[model_name](pretrained=True)

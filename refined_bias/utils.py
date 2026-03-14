@@ -9,7 +9,7 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 
-from models.model_zoo import load_pretrained_model_timm, load_pretrained_model_torchvision
+from models.model_zoo import load_pretrained_across_learning, load_pretrained_across_model
 from decision_mapping.decision_mappings import ImageNetProbabilitiesTo1000ClassesMapping
 
 warnings.filterwarnings(
@@ -48,20 +48,37 @@ def set_class_mappings(dataset):
 ####################################################################
 def get_model_list(target):
     if target == 'arch':
-        model_names = ['bagnet9', 'bagnet17', 'bagnet33',
-                    "resnet18", "resnet34", "resnet50", "resnet101", "resnet152", 
-                    "alexnet", "vgg11_bn", "vgg13_bn", "vgg16_bn", "vgg19_bn",
-                    "densenet121", "densenet169", "densenet201",
-                    "convnext_tiny", "convnext_small", "convnext_base", "convnext_large",
-                    "vit_small_patch16_224", "vit_base_patch16_224", "vit_large_patch16_224",]
+        model_names = [
+                    # CNNs
+                    'bagnet9', 'bagnet17', 'bagnet33',                                  # bagnet
+                    "alexnet",                                                          # alexnet
+                    "vgg11_bn", "vgg13_bn", "vgg16_bn", "vgg19_bn",                     # vgg
+                    "resnet18", "resnet34", "resnet50", "resnet101", "resnet152",       # resnet
+                    "inception_v3",                                                     # inception
+                    # ViTs
+                    "vit_small_patch16_224", "swin_base_patch16_224",    # swin
+                    "cmt_s", "cmt_b"                                                    # cmt
+                    ]
     elif target == 'strategy':
-        model_names = ["tv_resnet50", "tv2_resnet50", "resnet50.d_in1k", "resnet50.c1_in1k", "resnet50.b1k_in1k", "resnet50.c2_in1k", "resnet50.b2k_in1k", "resnet50.a3_in1k", "resnet50.a2_in1k", 
-                    "resnet50.a1h_in1k", "resnet50.a1_in1k", "resnet50_diffusionnoise_fixed_nonoise", "resnet50_prime", "resnet50_deepaugment", "resnet50_noisymix", "resnet50_deepaugment_augmix", 
-                    "resnet50_pixmix_90ep", "resnet50_pixmix_180ep", "resnet50_augmix_180ep", "resnet50_tsbias_tbias", "resnet50_tsbias_sbias", "resnet50_tsbias_debiased", "resnet50_opticsaugment", 
-                    "resnet50_trained_on_SIN", "resnet50_trained_on_SIN_and_finetuned_on_IN", "resnet50_trained_on_SIN_and_IN", "resnet50_frozen_random", "robust_resnet50_l2_eps0.01", 
-                    "robust_resnet50_l2_eps0.03", "robust_resnet50_l2_eps0.05", "robust_resnet50_l2_eps0.1", "robust_resnet50_l2_eps0.25", "robust_resnet50_l2_eps0.5", "robust_resnet50_l2_eps1", 
-                    "robust_resnet50_linf_eps8.0", "robust_resnet50_l2_eps5", "robust_resnet50_linf_eps0.5", "robust_resnet50_linf_eps1.0", "robust_resnet50_linf_eps2.0", "robust_resnet50_linf_eps4.0", 
-                    "robust_resnet50_l2_eps0", "robust_resnet50_l2_eps3", "resnet50_moco_v3_100ep", "resnet50_moco_v3_300ep", "resnet50_moco_v3_1000ep", "resnet50_dino", "resnet50_swav", "resnet50_simclrv2"]
+        model_names = [
+                    # baseline
+                    'tv_resnet50',
+                    # mixed aug
+                    'tv2_resnet50', 'resnet50.d_in1k', 'resnet50.c1_in1k', 'resnet50.c2_in1k',
+                    'resnet50.b2k_in1k', 'resnet50.a3_in1k', 'resnet50.a2_in1k', 'resnet50.a1h_in1k',
+                    # texture distortion
+                    'resnet50_prime', 'resnet50_deepaugment', 'resnet50_pixmix_180ep', 'resnet50_augmix_180ep', 'resnet50_opticsaugment',
+                    # shape bias
+                    'resnet50_tsbias_sbias', 'resnet50_trained_on_SIN_and_finetuned_on_IN', 'resnet50_trained_on_SIN_and_IN',
+                    # ssl
+                    'resnet50_moco_v3_1000ep', 'resnet50_dino', 'resnet50_simclrv2',
+                    # adversarial
+                    'robust_resnet50_l2_eps0.05', 'robust_resnet50_l2_eps0.1', 'robust_resnet50_l2_eps0.25',
+                    'robust_resnet50_l2_eps0.5', 'robust_resnet50_l2_eps1', 'robust_resnet50_l2_eps3',
+                    'robust_resnet50_l2_eps5',
+                    'robust_resnet50_linf_eps8.0', 'robust_resnet50_linf_eps0.5', 'robust_resnet50_linf_eps1.0',
+                    'robust_resnet50_linf_eps2.0', 'robust_resnet50_linf_eps4'
+                    ]
     else:
         print("")
     return model_names
@@ -125,12 +142,20 @@ class ImageFolderWithPaths(datasets.ImageFolder):
 
 
 #& dataloader function
-def load_dataset(dataset, *args, **kwargs):  
-    transform = transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-    ])
+def load_dataset(dataset, image_size=224, *args, **kwargs):  
+    if image_size == 224:
+        transform = transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(image_size),
+            transforms.ToTensor(),
+        ])
+    else:   # for cmt_b  
+        size = int((256 / 224) * image_size)
+        transform = transforms.Compose([
+            transforms.Resize(size, interpolation=3),  # to maintain same ratio w.r.t. 224 images
+            transforms.CenterCrop(image_size),
+            transforms.ToTensor(),
+        ])
 
     dataset_path = f'./datasets/{dataset}/'
     dataset_obj = ImageFolderWithPaths(root=dataset_path, transform=transform)
@@ -156,9 +181,9 @@ def load_dataset(dataset, *args, **kwargs):
 ####################################################################
 def load_model(model_name, package, pretrained=True, device=None):
     if package == 'timm':
-        model = load_pretrained_model_timm(model_name)
+        model = load_pretrained_across_learning(model_name)
     elif package == 'torchvision':
-        model = load_pretrained_model_torchvision(model_name)
+        model = load_pretrained_across_model(model_name)
     else:
         print("Check the package..")
     model.to(device)
