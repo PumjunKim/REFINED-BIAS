@@ -2,11 +2,24 @@
 
 
 ## Abstract
-Mixed visual cue images, such as cue-conflict images, are known to effectively
-reveal how deep neural networks perceive cues like texture and shape. However, we argue that the influential cue-conflict benchmark suffers from three key limitations: (1) stylization introduces artifacts that blur the distinction between texture and shape cues; (2) evaluation is limited by a small class subset, distorting the full output distribution of n-way models (e.g., 1,000-way for ImageNet pre-trained models); and (3) evaluation metrics are skewed by dominant classes particularly when the model exhibits low precision. These issues distort bias evaluation and weaken alignment with human perception. To address this, we introduce REFINED-BIAS, a diagnostic benchmark that corrects these distortions and better aligns with human visual understanding. REFINED-BIAS generates artifact-free samples using human-recognizable patterns and quantifies cue sensitivity across the full label space using Mean Reciprocal Rank, enabling more robust and interpretable evaluations. Our study show that REFINED-BIAS provides more accurate and human-aligned insights than the prior benchmark. Applied across diverse architectures and training regimes, REFINED-BIAS offers a corrected view on texture and shape biases, setting a new standard for probing visual priors in neural networks. Our code is available at REFINED-BIAS .
+Understanding how neural networks rely on visual cues offers a humaninterpretable view of their internal decision processes. The cue-conflict benchmark
+has been influential in probing shape-texture preference and in motivating the
+insight that stronger, human-like shape bias is often associated with improved
+in-domain performance. However, we find that the current stylization-based instantiation can yield unstable and ambiguous bias estimates. Specifically, stylization
+may not reliably instantiate perceptually valid and separable cues nor control their
+relative informativeness, ratio-based bias can obscure absolute cue sensitivity,
+and restricting evaluation to preselected classes can distort model predictions by
+ignoring the full decision space. Together, these factors can confound preference with cue validity, cue balance, and recognizability artifacts. We introduce
+REFINED-BIAS, an integrated dataset and evaluation framework for reliable and
+interpretable shape–texture bias diagnosis. REFINED-BIAS constructs balanced,
+human- and model- recognizable cue pairs using explicit definitions of shape and
+texture, and measures cue-specific sensitivity over the full label space via a rankingbased metric, enabling fairer cross-model comparisons. Across diverse training
+regimes and architectures, REFINED-BIAS enables fairer cross-model comparison,
+more faithful diagnosis of shape and texture biases, and clearer empirical conclusions, resolving inconsistencies that prior cue-conflict evaluations could not
+reliably disambiguate. Our code is publicly available at REFINED-BIAS.
 
 ## How to reproduce our results
-### Environmental Setup <!-- 수정해야 됨 -->
+### Environmental Setup 
 ```
 conda create --name refined-bias python=3.8.20 -y
 conda activate refined-bias

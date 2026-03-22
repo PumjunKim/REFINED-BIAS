@@ -55,9 +55,9 @@ def get_model_list(target):
                     "vgg11_bn", "vgg13_bn", "vgg16_bn", "vgg19_bn",                     # vgg
                     "resnet18", "resnet34", "resnet50", "resnet101", "resnet152",       # resnet
                     "inception_v3",                                                     # inception
-                    # ViTs
-                    "vit_small_patch16_224", "vit_base_patch16_224" 
-                    "swin_small_patch16_224", "swin_base_patch16_224",    # swin
+                    # ViTs  
+                    "vit_small_patch16_224", "vit_base_patch16_224",                     # vit
+                    "swin_small_patch16_224", "swin_base_patch16_224",                  # swin
                     "cmt_s", "cmt_b"                                                    # cmt
                     ]
     elif target == 'strategy':
