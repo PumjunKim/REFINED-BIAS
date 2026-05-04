@@ -78,7 +78,7 @@ def get_model_list(target):
                     'robust_resnet50_l2_eps0.5', 'robust_resnet50_l2_eps1', 'robust_resnet50_l2_eps3',
                     'robust_resnet50_l2_eps5',
                     'robust_resnet50_linf_eps8.0', 'robust_resnet50_linf_eps0.5', 'robust_resnet50_linf_eps1.0',
-                    'robust_resnet50_linf_eps2.0', 'robust_resnet50_linf_eps4'
+                    'robust_resnet50_linf_eps2.0', 'robust_resnet50_linf_eps4.0'
                     ]
     else:
         print("")
