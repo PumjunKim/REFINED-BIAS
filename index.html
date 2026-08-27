@@ -10,7 +10,7 @@
   <link rel="icon" href="./static/images/magic_wand.png" type="image/png">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script async src="https:ㅂ//www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -184,6 +184,21 @@
     right: -15px !important;
   }
 
+  /* 상단 반복 배너 (star magic stickers) */
+  .top-gif-banner {
+    width: 100%;
+    height: 90px;
+    background-image: url('./static/gif/star_magic_stickers.gif');
+    background-repeat: repeat-x;
+    background-position: left center;
+    background-size: auto 90px;
+  }
+
+  /* 배너 바로 아래 hero 영역의 상단 여백을 줄여 간격을 좁힘 */
+  .top-gif-banner + .hero .hero-body {
+    padding-top: 1rem;
+  }
+
 </style>
 
   <script>
@@ -228,7 +243,7 @@
 </head>
 <body>
 
-
+<div class="top-gif-banner"></div>
 
 <section class="hero">
   <div class="hero-body">
@@ -258,7 +273,7 @@
               <a href="https://scholar.google.co.kr/citations?hl=en&user=7NBlQw4AAAAJ">Jaejun Yoo</a><sup>1,*</sup>
             </span>
           </div>
-          <div class="is-size-5 publication-authors">
+          <div class="is-size-6 publication-authors" style="font-size:0.6em;">
             <span class="author-block"><sup>1</sup>Ulsan National Institute of Science & Technology</span><br>
             <span class="author-block"><sup>2</sup>College of Medicine, Hanyang University</span><br>
             <span class="author-block"><sup>3</sup>NAVER AI Lab</span>
@@ -266,6 +281,9 @@
           <div class="is-size-6" style="font-size:0.6em;">
             <sup>†</sup> Equal contributions. <sup>*</sup> Corresponding authors.
           </div>
+          <p class="is-size-5" style="color:red; font-weight:bold; margin: 1rem 0 0.5rem;">
+            🎉 ECCV 2026 Spotlight (Oral) 🎊
+          </p>
 
           <div class="column has-text-centered">
             <div class="publication-links">
